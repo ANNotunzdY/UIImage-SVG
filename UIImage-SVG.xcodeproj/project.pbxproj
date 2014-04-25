@@ -25,6 +25,7 @@
 		76D48463190A97BF00B8157C /* UIImage+SVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D48462190A97BF00B8157C /* UIImage+SVG.m */; };
 		76D48466190A97E700B8157C /* SVGImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D48465190A97E700B8157C /* SVGImageCache.m */; };
 		76D48469190A9C5800B8157C /* Happyface.svg in Resources */ = {isa = PBXBuildFile; fileRef = 76D48468190A9C5800B8157C /* Happyface.svg */; };
+		76D4846F190A9FC500B8157C /* Happyface.svg in Resources */ = {isa = PBXBuildFile; fileRef = 76D48468190A9C5800B8157C /* Happyface.svg */; };
 		9BABD74398C54247ACC55342 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6B3006BDA94910A0B19444 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -259,6 +260,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76D4846F190A9FC500B8157C /* Happyface.svg in Resources */,
 				76D4845A190A97A300B8157C /* InfoPlist.strings in Resources */,
 				76D4845B190A97A300B8157C /* UIImage-SVGTests-Info.plist in Resources */,
 			);
@@ -458,12 +460,12 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UIImage-SVG/UIImage-SVG-Prefix.pch";
+				GCC_PREFIX_HEADER = "Example/UIImage-SVG-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "UIImage-SVGTests/UIImage-SVGTests-Info.plist";
+				INFOPLIST_FILE = "Tests/UIImage-SVGTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -480,8 +482,8 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UIImage-SVG/UIImage-SVG-Prefix.pch";
-				INFOPLIST_FILE = "UIImage-SVGTests/UIImage-SVGTests-Info.plist";
+				GCC_PREFIX_HEADER = "Example/UIImage-SVG-Prefix.pch";
+				INFOPLIST_FILE = "Tests/UIImage-SVGTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

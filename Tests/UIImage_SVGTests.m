@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "UIImage+SVG.h"
 
 @interface UIImage_SVGTests : XCTestCase
 
@@ -26,9 +27,13 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)test
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    UIImage* image = [UIImage imageWithSVGNamed:@"Happyface"
+                                     targetSize:CGSizeMake(200, 200)
+                                      fillColor:[UIColor blueColor]];
+
+    XCTAssert(image != nil, @"Image shouldnt be nil.");
 }
 
 @end
