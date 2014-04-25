@@ -22,7 +22,9 @@
 
     self.window.rootViewController = rootViewController;
 
-    UIImage* image = [UIImage imageWithSVGNamed:@"Happyface" targetSize:CGSizeMake(200, 200) fillColor:[UIColor blueColor]];
+    UIImage* image = [UIImage imageWithSVGNamed:@"Happyface"
+                                     targetSize:CGSizeMake(200, 200)
+                                      fillColor:[UIColor blueColor]];
 
     [rootViewController.view addSubview:[[UIImageView alloc] initWithImage:image]];
 

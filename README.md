@@ -25,7 +25,9 @@ Usage
 ```
 
 ```objective-c
-
+UIImage* image = [UIImage imageWithSVGNamed:@"Happyface"
+                                 targetSize:CGSizeMake(200, 200)
+                                  fillColor:[UIColor blueColor]];
 ```
 
 License
