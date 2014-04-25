@@ -11,12 +11,11 @@ Pod::Spec.new do |s|
                    * Fill with color
                    DESC
 
-  s.homepage     = "http://docs.label305.com/uiimage-svg/master"
+  s.homepage     = "https://github.com/Label305/UIImage-SVG"
   s.license      = { :type => 'Apache License, Version 2.0', :file => 'LICENSE' }
-  s.author       = { "Freddie Tilley", "Thijs Scheepers" => "thijs@label305.com" }
+  s.author       = { "Thijs Scheepers" => "thijs@label305.com" }
 
-  s.source       = { :git => "https://github.com/Label305/UIImage-SVG", :tag => "0.1" }
-
+  s.source       = { :git => "https://github.com/Label305/UIImage-SVG.git", :tag => "0.1" }
 
   s.platform     = :ios, '6.0'
   s.requires_arc = true

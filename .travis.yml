@@ -7,11 +7,7 @@ env:
 
 xcode_workspace: UIImage-SVG.xcworkspace
 xcode_scheme: UIImage-SVG
-xcode_sdk: iphonesimulator7.1
-
-before_install:
-- gem install --no-ri --no-rdoc cocoapods sinatra
-- screen -L -dmS cltest ruby Tests/Server/server.rb
+xcode_sdk: iphonesimulator7.0
 
 after_success:
 - brew install appledoc ncftp
