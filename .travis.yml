@@ -2,8 +2,8 @@ language: objective-c
 
 env:
   global:
-  - secure: "kFO0znw+KgbvePsiR0Hoc6COHb/U29QWPrA1g9G62LoEy0T3SKtHFkMIRX11Nt/L4caNlCCd0KRAAxN7cZiQfBgFdifE8lfQOi7Oh3iU4dXoIjsw+B3ku9Pn417p8esbZHGNJEVtlVkt5yvPEAmjj1KXh8lsLw0AWVA+dtq9WWw="
-  - secure: "QuVkLSqY8u+qp/4VSet/EDq5zWgZGDFr3p3Z038e28iMlL7IqKr9YKfWJXw3xJvfWLoc56kyCHYklBSvRs2Px5DBlGnHSC6wSYw9Oz9s9d1DcPWn6lPIlWHHdZaC1URtdaIrD6HNAgvAA6vELST8pvie4FeJ91E1zVn/P6rsFOo="
+  - secure: "Ps9YGWs0oVLgehWt+/P/OXInkSsekj15GUYf02gjPmwg1pilzApcl2862Vca5Zel2YR7EPqDusu6JQHLjTh2ywEzXPscxqbn8IzrxJs+U3dIP8+r0Nc6Kw/wBhr/Mnv3bHu27B3WOSGpKvW5GhBUIZxJ9aEFgAD1jEjdAcgC5oE="
+  - secure: "ovMqF68OF+Q8wsiaSCnx3m7Lyz3AYfBCyR0IEtZsdAvbZO9TP3UliVZ7smx8Q+XJcQjWBzH/lY0YQA5odrGjyHlh3/LRQanvX0D5x2yinEjLjt5teDQCwvr5Czfu71Ai1tiqng7yLxf5PYiU0b6dSYRZxbetveH7bEwy9LRWQC0="
 
 xcode_workspace: UIImage-SVG.xcworkspace
 xcode_scheme: UIImage-SVG
@@ -16,7 +16,7 @@ after_success:
   --project-company "Label305" --company-id "com.label305" --output "docs" --publish-docset
   --docset-platform-family "iphoneos" --logformat xcode --keep-intermediate-files
   --no-repeat-first-par --no-warn-invalid-crossref --exit-threshold 2 Classes
-- ncftpput -R -m -u $FTP_USER -p $FTP_PASSWORD host3.label305.com /stankit-ios/$TRAVIS_BRANCH docs/html/*
+- ncftpput -R -m -u $FTP_USER -p $FTP_PASS host3.label305.com /uiimage-svg-ios/$TRAVIS_BRANCH docs/html/*
 
 notifications:
   email: false
