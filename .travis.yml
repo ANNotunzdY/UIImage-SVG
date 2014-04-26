@@ -12,6 +12,9 @@ xcode_sdk: iphonesimulator7.1
 
 before_install:
 - gem install --no-ri --no-rdoc cocoapods
+- brew unlink xctool
+- brew update
+- brew install xctool
 
 after_success:
 - brew install appledoc ncftp
