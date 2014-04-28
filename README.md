@@ -30,6 +30,13 @@ UIImage* image = [UIImage imageWithSVGNamed:@"Happyface"
                                   fillColor:[UIColor blueColor]];
 ```
 
+Attribution
+---------
+* Freddie Tilley
+* Martin Haywood
+* Bob Monaghan
+* John Blanco
+
 License
 ---------
 Copyright 2014 Label305 B.V.
