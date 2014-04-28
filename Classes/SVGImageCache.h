@@ -2,7 +2,7 @@
 //  SVGImageCache.h
 //  UIImage-SVG
 //
-//  Created by Thijs Scheepers on 25/04/14.
+//  Created by Freddie Tilley en Thijs Scheepers on 25/04/14.
 //  Copyright (c) 2014 Label305 B.V. All rights reserved.
 //
 
