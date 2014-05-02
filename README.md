@@ -1,7 +1,7 @@
 UIImage+SVG [![Build Status](https://travis-ci.org/Label305/UIImage-SVG.svg?branch=master)](https://travis-ci.org/Label305/UIImage-SVG)
 ===========
 
-SVG images for iOS. Category on UIKit's UIImage to display SVG files.
+Simple SVG images for iOS. Category on UIKit's UIImage to display SVG files.
 
 CocoaPods
 ---------
@@ -16,6 +16,11 @@ Features
 ---------
 * Image Cache
 * Fill Color's
+
+To-do's
+---------
+* Use color's from the SVG image
+* Use line types from the SVG image (dotted and dashed lines etc.)
 
 Usage
 ---------
