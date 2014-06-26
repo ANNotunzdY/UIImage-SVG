@@ -236,9 +236,15 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
         {
             bezier = [self bezierFromLineElement: strokeElement];
         }
-        else if ([name isEqualToString: @"polyline"])
-        {
+        else if ([name isEqualToString: @"polyline"]){
             bezier = [self bezierFromPolylineElement: strokeElement];
+        }
+        else if([name isEqualToString: @"polygon"])
+        {
+            bezier = [self bezierFromPolygonElement: strokeElement];
+        } else if([name isEqualToString: @"rect"])
+        {
+            bezier = [self bezierFromRectElement: strokeElement];
         }
         else
         {
@@ -275,7 +281,9 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
             // add the element to the array if it's a line drawing element
             if ([name isEqualToString: @"path"] ||
                 [name isEqualToString: @"line"] ||
-                [name isEqualToString: @"polyline"])
+                [name isEqualToString: @"polyline"] ||
+                [name isEqualToString: @"polygon"] ||
+                [name isEqualToString: @"rect"])
             {
                 //NSString *name = element.tag;
                 //NSLog(@"element name: %@", name);
@@ -319,6 +327,28 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
     return bezier;
 }
 
+- (BEZIER_PATH_TYPE *) bezierFromRectElement: (RXMLElement *) rectElement
+{
+    BEZIER_PATH_TYPE *bezier = [[BEZIER_PATH_TYPE alloc] init];
+    bezier = [UIBezierPath bezierPathWithRoundedRect:CGRectMake([[rectElement attribute:@"x"] floatValue],
+                                                                [[rectElement attribute:@"y"] floatValue],
+                                                                [[rectElement attribute:@"width"] floatValue],
+                                                                [[rectElement attribute:@"height"] floatValue])
+                                   byRoundingCorners:UIRectCornerAllCorners
+                                         cornerRadii:CGSizeMake([[rectElement attribute:@"rx"] floatValue],
+                                                                [[rectElement attribute:@"rx"] floatValue])];
+    
+    return bezier;
+}
+
+- (BEZIER_PATH_TYPE *) bezierFromPolygonElement: (RXMLElement *) polygonElement
+{
+    NSString *pointsAttribute = [polygonElement attribute: @"points"];
+    NSArray *pairs = [pointsAttribute componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    return [self connectPoints:pairs
+                      inBezier:[self bezierFromPolylineElement:polygonElement]];
+}
 
 #pragma mark - parse <polyline> element and create a bezier curve
 
@@ -338,18 +368,8 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
         if ([pair isEqualToString: @""]) {
             continue;
         }
-        
-        NSArray *coordinate = [pair componentsSeparatedByString: @","];
-        if ([coordinate count] != 2)
-        {
-            NSLog(@"expected an x and y coordinate pair");
-            exit(EXIT_FAILURE);
-        }
-        NSString *xString = [coordinate objectAtIndex: 0];
-        NSString *yString = [coordinate objectAtIndex: 1];
-        CGFloat x = [xString floatValue];
-        CGFloat y = [yString floatValue];
-        CGPoint point = CGPointMake(x, y);
+
+        CGPoint point = [self getPointFromString:pair];
         
         if (firstPoint)
         {
@@ -373,6 +393,35 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
     return bezier;
 }
 
+- (BEZIER_PATH_TYPE *) connectPoints: (NSArray *) pairs
+                            inBezier: (BEZIER_PATH_TYPE *) bezier {
+    
+    NSString *first = [pairs objectAtIndex:0];
+    NSString *last = [pairs lastObject];
+    
+    NSLog(@"first: %@, last %@", first, last);
+    
+    
+    
+    return bezier;
+}
+
+- (CGPoint) getPointFromString:(NSString *)pointString {
+    
+    NSArray *coordinate = [pointString componentsSeparatedByString: @","];
+    if ([coordinate count] != 2)
+    {
+        NSLog(@"expected an x and y coordinate pair");
+        exit(EXIT_FAILURE);
+    }
+    
+    NSString *xString = [coordinate objectAtIndex: 0];
+    NSString *yString = [coordinate objectAtIndex: 1];
+    CGFloat x = [xString floatValue];
+    CGFloat y = [yString floatValue];
+
+    return CGPointMake(x, y);
+}
 
 #pragma mark - parse <path> element and create a bezier curve
 
@@ -382,12 +431,17 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
     // get the <path> 'd' attribute
     NSString *pathString = [pathElement attribute: @"d"];
     
+    // get the <path> 'fill' attribute
+    // NSString *fillColor = [pathElement attribute: @"fill"];
+    
+    CGFloat lineWidth = [[pathElement attribute: @"stroke-width"] floatValue];
+    
     // parse them into an array of Token objects
     // one Token for each path command
     NSArray *tokens = [self parsePath: pathString];
     
     // build a bezier path from the Tokens
-    BEZIER_PATH_TYPE *bezier = [self generateBezierFromTokens: tokens];
+    BEZIER_PATH_TYPE *bezier = [self generateBezierFromTokens: tokens width: lineWidth];
     
     return bezier;
 }
@@ -500,6 +554,12 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
     }
     
 	return [tokens copy];
+}
+
+- (BEZIER_PATH_TYPE *) generateBezierFromTokens: (NSArray *) tokens width: (CGFloat) lineWidth {
+    BEZIER_PATH_TYPE *bezier = [self generateBezierFromTokens:tokens];
+    bezier.lineWidth = lineWidth;
+    return bezier;
 }
 
 // build a bezier path from the Tokens

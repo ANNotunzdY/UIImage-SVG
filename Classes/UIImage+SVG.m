@@ -27,47 +27,65 @@
 						fillColor:(UIColor*)fillColor
 							cache:(BOOL)cacheImage
 {
-	NSDictionary *cacheKey = @{@"name" : svgName,
-							   @"size" : [NSValue valueWithCGSize: targetSize],
-							   @"color" : fillColor};
-
-	UIImage *image = [[SVGImageCache sharedImageCache] cachedImageWithKey: cacheKey];
-
-	if (image == nil) {
-
-		PocketSVG *svg = [[PocketSVG alloc] initFromSVGFile: svgName];
-		CGFloat boundingBoxAspectRatio = svg.width / svg.height;
-		CGFloat targetAspectRatio = targetSize.width / targetSize.height;
-		CGFloat scaleFactor = 1.0f;
-		CGAffineTransform transform;
-
-		if (boundingBoxAspectRatio > targetAspectRatio) {
-			scaleFactor = targetSize.width / svg.width;
-		} else {
-			scaleFactor = targetSize.height / svg.height;
+    
+    NSDictionary *cacheKey = @{@"name" : svgName,
+                               @"size" : [NSValue valueWithCGSize: targetSize],
+                               @"color" : fillColor};
+    
+    UIImage *image = [[SVGImageCache sharedImageCache] cachedImageWithKey: cacheKey];
+    
+    if (image == nil) {
+        
+        PocketSVG *svg = [[PocketSVG alloc] initFromSVGFile: svgName];
+        CGFloat boundingBoxAspectRatio = svg.width / svg.height;
+        CGFloat targetAspectRatio = targetSize.width / targetSize.height;
+        CGFloat scaleFactor = 1.0f;
+        CGAffineTransform transform;
+        
+        if (boundingBoxAspectRatio > targetAspectRatio) {
+            scaleFactor = targetSize.width / svg.width;
+        } else {
+            scaleFactor = targetSize.height / svg.height;
         }
+        
+        transform = CGAffineTransformIdentity;
+        transform = CGAffineTransformScale(transform, scaleFactor, scaleFactor);
+        
+        UIGraphicsBeginImageContextWithOptions(targetSize, NO, [[UIScreen mainScreen] scale]);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetStrokeColorWithColor(context, [fillColor CGColor]);
+        CGContextSetFillColorWithColor(context, [fillColor CGColor]);
+        
+        
+        // Start draw
+        for (UIBezierPath *path in svg.beziers) {
+            float lineWidth = path.lineWidth;
+            if(lineWidth < 2.0){
+                CGContextSetLineWidth(context, 2.0f);
+            } else {
+                CGContextSetLineWidth(context, lineWidth);
+            }
+            
+            CGPathRef scaledPath = CGPathCreateCopyByTransformingPath([path CGPath], &transform);
+            CGContextAddPath(context, scaledPath);
+            
+            
+            CGContextDrawPath(context, kCGPathStroke);
 
-		transform = CGAffineTransformIdentity;
-		transform = CGAffineTransformScale(transform, scaleFactor, scaleFactor);
-
-		UIGraphicsBeginImageContextWithOptions(targetSize, NO, [[UIScreen mainScreen] scale]);
-		CGContextRef context = UIGraphicsGetCurrentContext();
-		CGContextSetFillColorWithColor(context, [fillColor CGColor]);
-
-		for (UIBezierPath *path in svg.beziers) {
-			CGPathRef scaledPath = CGPathCreateCopyByTransformingPath([path CGPath], &transform);
-			CGContextAddPath(context, scaledPath);
-		}
-
-		CGContextFillPath(context);
-
-		image = UIGraphicsGetImageFromCurrentImageContext();
-		UIGraphicsEndImageContext();
-
-		if (cacheImage) {
-			[[SVGImageCache sharedImageCache] addImageToCache:image forKey:cacheKey];
         }
-	}
+        // CGContextEOFillPath(context);
+        // CGContextFillPath(context);
+        
+        // End draw
+        
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        if (cacheImage) {
+            [[SVGImageCache sharedImageCache] addImageToCache:image forKey:cacheKey];
+        }
+    }
+    
     
 	return image;
 }
