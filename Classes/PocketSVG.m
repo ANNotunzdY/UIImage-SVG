@@ -346,7 +346,7 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
     NSString *pointsAttribute = [polygonElement attribute: @"points"];
     NSArray *pairs = [pointsAttribute componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    return [self connectPoints:pairs
+    return [self connectPoints:[pairs objectAtIndex:0]
                       inBezier:[self bezierFromPolylineElement:polygonElement]];
 }
 
@@ -393,14 +393,15 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
     return bezier;
 }
 
-- (BEZIER_PATH_TYPE *) connectPoints: (NSArray *) pairs
+- (BEZIER_PATH_TYPE *) connectPoints: (NSString *) start
                             inBezier: (BEZIER_PATH_TYPE *) bezier {
+    CGPoint point = [self getPointFromString:start];
     
-    NSString *first = [pairs objectAtIndex:0];
-    NSString *last = [pairs lastObject];
-    
-    NSLog(@"first: %@, last %@", first, last);
-    
+#ifdef TARGET_OS_IPHONE
+    [bezier addLineToPoint: point];
+#else
+    [bezier lineToPoint: NSPointFromCGPoint(point)];
+#endif
     
     
     return bezier;
