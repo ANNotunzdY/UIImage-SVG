@@ -17,6 +17,7 @@ typedef NSBezierPath BEZIER_PATH_TYPE;
 #endif
 
 #import <RaptureXML/RXMLElement.h>
+#import "UIBezierPath+SVG.h"
 
 @interface PocketSVG : NSObject
 

@@ -329,14 +329,13 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
 
 - (BEZIER_PATH_TYPE *) bezierFromRectElement: (RXMLElement *) rectElement
 {
-    BEZIER_PATH_TYPE *bezier = [[BEZIER_PATH_TYPE alloc] init];
-    bezier = [UIBezierPath bezierPathWithRoundedRect:CGRectMake([[rectElement attribute:@"x"] floatValue],
-                                                                [[rectElement attribute:@"y"] floatValue],
-                                                                [[rectElement attribute:@"width"] floatValue],
-                                                                [[rectElement attribute:@"height"] floatValue])
-                                   byRoundingCorners:UIRectCornerAllCorners
-                                         cornerRadii:CGSizeMake([[rectElement attribute:@"rx"] floatValue],
-                                                                [[rectElement attribute:@"rx"] floatValue])];
+    UIBezierPath *bezier = [UIBezierPath bezierPathWithRoundedRect:CGRectMake([[rectElement attribute:@"x"] floatValue],
+                                                                        [[rectElement attribute:@"y"] floatValue],
+                                                                        [[rectElement attribute:@"width"] floatValue],
+                                                                        [[rectElement attribute:@"height"] floatValue])
+                                           byRoundingCorners:UIRectCornerAllCorners
+                                                 cornerRadii:CGSizeMake([[rectElement attribute:@"rx"] floatValue],
+                                                                        [[rectElement attribute:@"rx"] floatValue])];
     
     return bezier;
 }
@@ -433,16 +432,16 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
     NSString *pathString = [pathElement attribute: @"d"];
     
     // get the <path> 'fill' attribute
-    // NSString *fillColor = [pathElement attribute: @"fill"];
+    NSString *fillColor = [pathElement attribute: @"fill"];
     
     CGFloat lineWidth = [[pathElement attribute: @"stroke-width"] floatValue];
-    
+       
     // parse them into an array of Token objects
     // one Token for each path command
     NSArray *tokens = [self parsePath: pathString];
     
     // build a bezier path from the Tokens
-    BEZIER_PATH_TYPE *bezier = [self generateBezierFromTokens: tokens width: lineWidth];
+    BEZIER_PATH_TYPE *bezier = [self generateBezierFromTokens: tokens width: lineWidth fillColor:fillColor];
     
     return bezier;
 }
@@ -493,14 +492,6 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
         [stringTokens addObject: result];
     }
 
-	/*
-    NSLog(@"tokens:");
-    for (NSString *string in stringTokens)
-    {
-        NSLog(@"%@", string);
-    }
-	 */
-
 	// turn the command strings into Tokens, checking validity of the commands as we go
 	NSMutableArray *tokens = [[NSMutableArray alloc] init];
     
@@ -526,9 +517,7 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
         
         // create the Token object
         Token *token = [[Token alloc] initWithCommand:command];
-        
-        //NSLog(@"command: %c", command);
-        
+    
         // parse the parameters
         // should be a series of floats
         for (NSString *parameterString in parameters)
@@ -545,8 +534,6 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
                 exit(EXIT_FAILURE);
 			}
             
-            //NSLog(@"parameter: %f", value);
-            
             // save the parameter in the Token
 			[token addValue:value];
         }
@@ -557,9 +544,10 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
 	return [tokens copy];
 }
 
-- (BEZIER_PATH_TYPE *) generateBezierFromTokens: (NSArray *) tokens width: (CGFloat) lineWidth {
+- (BEZIER_PATH_TYPE *) generateBezierFromTokens: (NSArray *) tokens width: (CGFloat) lineWidth fillColor: (NSString *) fillColor{
     BEZIER_PATH_TYPE *bezier = [self generateBezierFromTokens:tokens];
     bezier.lineWidth = lineWidth;
+    //[bezier setFillColor:fillColor];
     return bezier;
 }
 

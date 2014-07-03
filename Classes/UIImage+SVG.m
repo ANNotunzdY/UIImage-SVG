@@ -7,6 +7,7 @@
 //
 
 #import "UIImage+SVG.h"
+#import "UIBezierPath+SVG.h"
 #import "SVGImageCache.h"
 #import "PocketSVG.h"
 
@@ -58,7 +59,7 @@
         
         
         // Start draw
-        for (UIBezierPath *path in svg.beziers) {
+        for (BEZIER_PATH_TYPE *path in svg.beziers) {
             float lineWidth = path.lineWidth;
             if(lineWidth < 2.0){
                 CGContextSetLineWidth(context, 2.0f);
@@ -69,12 +70,15 @@
             CGPathRef scaledPath = CGPathCreateCopyByTransformingPath([path CGPath], &transform);
             CGContextAddPath(context, scaledPath);
             
-            
-            CGContextDrawPath(context, kCGPathStroke);
+            //if([[path fillColor] length] > 0 && ![[path fillColor] isEqualToString:@""] && [[path fillColor] isEqualToString:@"none"]){
+            //    NSLog(@"hier");
+                CGContextDrawPath(context, kCGPathFill);
+            //} else {
+            //    NSLog(@"of hier ");
+            //    CGContextDrawPath(context, kCGPathStroke);
+           // }
 
         }
-        // CGContextEOFillPath(context);
-        // CGContextFillPath(context);
         
         // End draw
         

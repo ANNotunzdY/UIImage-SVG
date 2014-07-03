@@ -27,6 +27,8 @@
 		76D48469190A9C5800B8157C /* Happyface.svg in Resources */ = {isa = PBXBuildFile; fileRef = 76D48468190A9C5800B8157C /* Happyface.svg */; };
 		76D4846F190A9FC500B8157C /* Happyface.svg in Resources */ = {isa = PBXBuildFile; fileRef = 76D48468190A9C5800B8157C /* Happyface.svg */; };
 		9BABD74398C54247ACC55342 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6B3006BDA94910A0B19444 /* libPods.a */; };
+		AD0E0A3D19655D7B00F39EA4 /* UIBezierPath+SVG.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0E0A3C19655D7B00F39EA4 /* UIBezierPath+SVG.m */; };
+		AD0E0A3E19655D7B00F39EA4 /* UIBezierPath+SVG.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0E0A3C19655D7B00F39EA4 /* UIBezierPath+SVG.m */; };
 		ADD2CE0C195080B80028FCED /* tabbar_about.svg in Resources */ = {isa = PBXBuildFile; fileRef = ADD2CE08195080B80028FCED /* tabbar_about.svg */; };
 		ADD2CE0D195080B80028FCED /* tabbar_events.svg in Resources */ = {isa = PBXBuildFile; fileRef = ADD2CE09195080B80028FCED /* tabbar_events.svg */; };
 		ADD2CE0E195080B80028FCED /* tabbar_locations.svg in Resources */ = {isa = PBXBuildFile; fileRef = ADD2CE0A195080B80028FCED /* tabbar_locations.svg */; };
@@ -69,6 +71,8 @@
 		76D48464190A97E700B8157C /* SVGImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGImageCache.h; sourceTree = "<group>"; };
 		76D48465190A97E700B8157C /* SVGImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGImageCache.m; sourceTree = "<group>"; };
 		76D48468190A9C5800B8157C /* Happyface.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Happyface.svg; sourceTree = "<group>"; };
+		AD0E0A3B19655D7B00F39EA4 /* UIBezierPath+SVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+SVG.h"; sourceTree = "<group>"; };
+		AD0E0A3C19655D7B00F39EA4 /* UIBezierPath+SVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+SVG.m"; sourceTree = "<group>"; };
 		ADD2CE08195080B80028FCED /* tabbar_about.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tabbar_about.svg; sourceTree = "<group>"; };
 		ADD2CE09195080B80028FCED /* tabbar_events.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tabbar_events.svg; sourceTree = "<group>"; };
 		ADD2CE0A195080B80028FCED /* tabbar_locations.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tabbar_locations.svg; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				76D48462190A97BF00B8157C /* UIImage+SVG.m */,
 				76D48464190A97E700B8157C /* SVGImageCache.h */,
 				76D48465190A97E700B8157C /* SVGImageCache.m */,
+				AD0E0A3B19655D7B00F39EA4 /* UIBezierPath+SVG.h */,
+				AD0E0A3C19655D7B00F39EA4 /* UIBezierPath+SVG.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -322,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD0E0A3D19655D7B00F39EA4 /* UIBezierPath+SVG.m in Sources */,
 				76D48463190A97BF00B8157C /* UIImage+SVG.m in Sources */,
 				76D48452190A979B00B8157C /* main.m in Sources */,
 				76D48460190A97AD00B8157C /* PocketSVG.m in Sources */,
@@ -334,6 +341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD0E0A3E19655D7B00F39EA4 /* UIBezierPath+SVG.m in Sources */,
 				76D4845C190A97A300B8157C /* UIImage_SVGTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

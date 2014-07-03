@@ -25,7 +25,7 @@
     UIImage* image = [UIImage imageWithSVGNamed:@"Happyface"
                                      targetSize:CGSizeMake(100, 100)
                                       fillColor:[UIColor blueColor]];
-    
+   /*
     UIImage* image2 = [UIImage imageWithSVGNamed:@"tabbar_about"
                                       targetSize:CGSizeMake(100, 100)
                                        fillColor:[UIColor greenColor]];
@@ -41,29 +41,28 @@
     UIImage* image5 = [UIImage imageWithSVGNamed:@"tabbar_news"
                                       targetSize:CGSizeMake(100, 100)
                                        fillColor:[UIColor purpleColor]];
-    
-    UIImageView *IV = [[UIImageView alloc] initWithImage:image];
-    IV.frame = CGRectMake(0, 0, IV.frame.size.width, IV.frame.size.height);
 
+    */UIImageView *IV = [[UIImageView alloc] initWithImage:image];
+    IV.frame = CGRectMake(0, 0, IV.frame.size.width, IV.frame.size.height);
+/*
     UIImageView *IV2 = [[UIImageView alloc] initWithImage:image2];
     IV2.frame = CGRectMake(0, 100, IV2.frame.size.width, IV2.frame.size.height);
     
     UIImageView *IV3 = [[UIImageView alloc] initWithImage:image3];
     IV3.frame = CGRectMake(0, 200, IV3.frame.size.width, IV3.frame.size.height);
     
-    
     UIImageView *IV4 = [[UIImageView alloc] initWithImage:image4];
     IV4.frame = CGRectMake(0, 300, IV4.frame.size.width, IV4.frame.size.height);
     
-    
     UIImageView *IV5 = [[UIImageView alloc] initWithImage:image5];
     IV5.frame = CGRectMake(0, 400, IV5.frame.size.width, IV5.frame.size.height);
-    
+    */
     [rootViewController.view addSubview:IV];
-    [rootViewController.view addSubview:IV2];
-    [rootViewController.view addSubview:IV3];
-    [rootViewController.view addSubview:IV4];
-    [rootViewController.view addSubview:IV5];
+    //[rootViewController.view addSubview:IV2];
+   
+    //[rootViewController.view addSubview:IV3];
+    //[rootViewController.view addSubview:IV4];
+    //[rootViewController.view addSubview:IV5];
 
     return YES;
 }
