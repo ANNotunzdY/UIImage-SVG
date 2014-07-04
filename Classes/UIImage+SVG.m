@@ -70,13 +70,14 @@
             CGPathRef scaledPath = CGPathCreateCopyByTransformingPath([path CGPath], &transform);
             CGContextAddPath(context, scaledPath);
             
-            //if([[path fillColor] length] > 0 && ![[path fillColor] isEqualToString:@""] && [[path fillColor] isEqualToString:@"none"]){
-            //    NSLog(@"hier");
+            
+            if([path fillColor] != nil && ![[path fillColor] isEqualToString:@""] && ![[path fillColor] isEqualToString:@"none"]){
                 CGContextDrawPath(context, kCGPathFill);
-            //} else {
-            //    NSLog(@"of hier ");
-            //    CGContextDrawPath(context, kCGPathStroke);
-           // }
+                NSLog(@"fil %@", [path fillColor]);
+            } else {
+                CGContextDrawPath(context, kCGPathStroke);
+                NSLog(@"stroke");
+            }
 
         }
         

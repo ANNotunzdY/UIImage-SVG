@@ -9,10 +9,16 @@
 #import "UIBezierPath+SVG.h"
 
 @implementation UIBezierPath (SVG)
+
+NSString *_fillColor;
+
 -(void) setFillColor:(NSString *)fillColor {
-    self.fillColor = fillColor;
+    NSLog(@"Fillcolor %@", fillColor);
+    _fillColor = fillColor;
 }
+
 -(NSString *)fillColor {
-    return self.fillColor;
+    NSLog(@"Get fillcolor %@", _fillColor);
+    return _fillColor;
 }
 @end

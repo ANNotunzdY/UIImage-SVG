@@ -11,6 +11,7 @@
 //
 
 #import "PocketSVG.h"
+#import "UIBezierPath+SVG.h"
 #import <RaptureXML/RXMLElement.h>
 
 
@@ -330,13 +331,19 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
 - (BEZIER_PATH_TYPE *) bezierFromRectElement: (RXMLElement *) rectElement
 {
     UIBezierPath *bezier = [UIBezierPath bezierPathWithRoundedRect:CGRectMake([[rectElement attribute:@"x"] floatValue],
-                                                                        [[rectElement attribute:@"y"] floatValue],
-                                                                        [[rectElement attribute:@"width"] floatValue],
-                                                                        [[rectElement attribute:@"height"] floatValue])
-                                           byRoundingCorners:UIRectCornerAllCorners
-                                                 cornerRadii:CGSizeMake([[rectElement attribute:@"rx"] floatValue],
-                                                                        [[rectElement attribute:@"rx"] floatValue])];
+                                                                              [[rectElement attribute:@"y"] floatValue],
+                                                                              [[rectElement attribute:@"width"] floatValue],
+                                                                              [[rectElement attribute:@"height"] floatValue])
+                                                 byRoundingCorners:UIRectCornerAllCorners
+                                                       cornerRadii:CGSizeMake([[rectElement attribute:@"rx"] floatValue],
+                                                                              [[rectElement attribute:@"rx"] floatValue])];
     
+    NSString *fillColor = [rectElement attribute:@"fill"];
+    
+    if(fillColor != nil && ![fillColor isEqualToString:@"none"]){
+        NSLog(@"filll color [%@]", [rectElement attribute:@"fill"]);
+        [bezier setFillColor:[rectElement attribute:@"fill"]];
+    }
     return bezier;
 }
 
@@ -545,9 +552,15 @@ NSString* const kCommandCharString = @"CcMmLlHhVvZzqQaAsS";
 }
 
 - (BEZIER_PATH_TYPE *) generateBezierFromTokens: (NSArray *) tokens width: (CGFloat) lineWidth fillColor: (NSString *) fillColor{
+    
     BEZIER_PATH_TYPE *bezier = [self generateBezierFromTokens:tokens];
     bezier.lineWidth = lineWidth;
-    //[bezier setFillColor:fillColor];
+    
+    NSLog(@"Fill in bezierfromtoken: %@", fillColor);
+    if(fillColor != nil && ![fillColor isEqualToString:@"none"]){
+        NSLog(@"set fill color");
+        [bezier setFillColor:fillColor];
+    }
     return bezier;
 }
 

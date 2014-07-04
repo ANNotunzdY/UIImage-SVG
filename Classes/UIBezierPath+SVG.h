@@ -10,6 +10,7 @@
 
 @interface UIBezierPath (SVG)
 @property (nonatomic, copy) NSString *fillColor;
+
 -(void) setFillColor:(NSString *)fillColor;
 -(NSString *)fillColor;
 @end
