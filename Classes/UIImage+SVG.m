@@ -57,6 +57,7 @@
 		for (UIBezierPath *path in svg.beziers) {
 			CGPathRef scaledPath = CGPathCreateCopyByTransformingPath([path CGPath], &transform);
 			CGContextAddPath(context, scaledPath);
+			CGPathRelease(scaledPath);
 		}
 
 		CGContextFillPath(context);
