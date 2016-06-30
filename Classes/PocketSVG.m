@@ -11,7 +11,7 @@
 //
 
 #import "PocketSVG.h"
-#import <RaptureXML/RXMLElement.h>
+@import RaptureXML_Frankly;
 
 
 #pragma mark - Token class interface
