@@ -24,6 +24,4 @@ Pod::Spec.new do |s|
 
   s.source_files  = 'Classes/*.{h,m}'
 
-  s.dependency 'RaptureXML@Frankly', '~>1.0.1'
-
 end

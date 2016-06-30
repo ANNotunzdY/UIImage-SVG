@@ -35,16 +35,17 @@
 
 	if (image == nil) {
 
-		PocketSVG *svg = [[PocketSVG alloc] initFromSVGFile: svgName];
-		CGFloat boundingBoxAspectRatio = svg.width / svg.height;
+		PocketSVG *svg = [[PocketSVG alloc] initFromSVGFileNamed: svgName];
+        CGSize size = svg.bezier.bounds.size;
+		CGFloat boundingBoxAspectRatio = size.width / size.height;
 		CGFloat targetAspectRatio = targetSize.width / targetSize.height;
 		CGFloat scaleFactor = 1.0f;
 		CGAffineTransform transform;
 
 		if (boundingBoxAspectRatio > targetAspectRatio) {
-			scaleFactor = targetSize.width / svg.width;
+			scaleFactor = targetSize.width / size.width;
 		} else {
-			scaleFactor = targetSize.height / svg.height;
+			scaleFactor = targetSize.height / size.height;
         }
 
 		transform = CGAffineTransformIdentity;
@@ -54,11 +55,9 @@
 		CGContextRef context = UIGraphicsGetCurrentContext();
 		CGContextSetFillColorWithColor(context, [fillColor CGColor]);
 
-		for (UIBezierPath *path in svg.beziers) {
-			CGPathRef scaledPath = CGPathCreateCopyByTransformingPath([path CGPath], &transform);
-			CGContextAddPath(context, scaledPath);
-			CGPathRelease(scaledPath);
-		}
+        CGPathRef scaledPath = CGPathCreateCopyByTransformingPath([svg.bezier CGPath], &transform);
+        CGContextAddPath(context, scaledPath);
+        CGPathRelease(scaledPath);
 
 		CGContextFillPath(context);
 
